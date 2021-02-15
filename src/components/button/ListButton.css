@@ -1,0 +1,31 @@
+.listButton {
+  cursor: pointer;
+  border: none;
+  color: #fff;
+  font-weight: 700;
+  width: 130px;
+  border-radius: 0.2vw;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  margin-right: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.add {
+  color: #fff;
+  background-color: #378304d8;
+  transition: all 0.2s;
+}
+.add:hover {
+  background-color: #67e215d8;
+}
+
+.remove {
+  color: #fff;
+  background-color: #940606;
+  transition: all 0.2s;
+}
+.remove:hover {
+  background-color: #da1c1c;
+}

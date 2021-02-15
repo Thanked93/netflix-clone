@@ -1,0 +1,20 @@
+.titlebar {
+  padding-left: 5%;
+  padding-right: 5%;
+  width: 90%;
+  height: 4vh;
+  background: linear-gradient(180deg, transparent, #050505, #1e1e1e);
+  transform: translateY(-2vh);
+}
+.titlebar__wrapper {
+  transform: translateY(-10vh);
+}
+
+.titlebar_title {
+  margin-bottom: 5px;
+  width: 50%;
+  font-size: 3vmin;
+  font-weight: 700;
+  font-family: sans-serif;
+  white-space: pre-wrap;
+}

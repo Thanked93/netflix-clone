@@ -1,0 +1,45 @@
+.preview {
+  display: inline-block;
+  position: relative;
+  height: 300px;
+  width: fit-content;
+  margin-right: 5px;
+  margin-left: 5px;
+  cursor: pointer;
+  transition: height 500ms;
+}
+
+.preview:hover {
+  height: 400px;
+}
+
+.preview__img {
+  object-fit: contain;
+  height: 100%;
+}
+
+.preview__imgSmall {
+  object-fit: contain;
+  height: 80%;
+}
+
+.preview__listButton {
+  position: absolute;
+  left: 5px;
+  opacity: 0;
+  transition: opacity 100ms;
+}
+
+.preview:hover .preview__listButton {
+  opacity: 1;
+  opacity: 1;
+  transition: opacity 2000ms;
+}
+
+.small {
+  bottom: 90px;
+}
+
+.big {
+  bottom: 10px;
+}

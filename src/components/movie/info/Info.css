@@ -1,0 +1,13 @@
+.info {
+  display: flex;
+  left: 0;
+  flex-direction: row;
+  width: 60%;
+  min-width: 300px;
+}
+.info__item {
+  margin-right: 10px;
+  font-weight: 600;
+  font-size: 2vmin;
+  font-family: sans-serif;
+}
