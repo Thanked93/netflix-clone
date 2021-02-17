@@ -1,22 +1,40 @@
 import React, { useReducer } from "react";
-import "./App.css";
 import Home from "./pages/Home";
-import { accountReducer, initialState } from "./reducer/accountReducer";
-import AccountReducerContext from "./reducer/accountReducerContext";
+import {
+  accountReducer,
+  initialAccountState,
+} from "./reducer/account/accountReducer";
+import StoreContext from "./context/StoreContext";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Account from "./pages/Account";
+import { initialMovieState, movieReducer } from "./reducer/movie/movieReducer";
+import useFetchToState from "./customHooks/useFetchToState";
 
 function App() {
-  const [state, dispatch] = useReducer(accountReducer, initialState);
+  const [accountState, accountDispatch] = useReducer(
+    accountReducer,
+    initialAccountState
+  );
+  const [movieState, movieDispatch] = useReducer(
+    movieReducer,
+    initialMovieState
+  );
+  let show = useFetchToState(movieDispatch);
+
+  if (!show) {
+    return null;
+  }
   return (
-    <AccountReducerContext.Provider value={{ state, dispatch }}>
+    <StoreContext.Provider
+      value={{ movieState, movieDispatch, accountState, accountDispatch }}
+    >
       <div className="App">
         <Router>
           <Route component={Home} exact path="/" />
           <Route path="/account" component={Account} />
         </Router>
       </div>
-    </AccountReducerContext.Provider>
+    </StoreContext.Provider>
   );
 }
 

@@ -1,0 +1,17 @@
+.movielist {
+  margin-left: 5vw;
+  margin-right: 5vw;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  height: auto;
+  width: 90vw;
+  flex-wrap: wrap;
+}
+
+.movieList__item {
+  display: flex;
+  width: 200px;
+  margin-right: 10px;
+  height: 320px;
+}

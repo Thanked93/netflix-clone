@@ -15,17 +15,22 @@ interface Movie {
 
 export type AccountAction = Action;
 
-export type State = {
+export type AccountState = {
   name: string;
   movies: Movie[];
 };
 
-export const initialState = {
+export type AccountStateType = AccountState;
+
+export const initialAccountState = {
   name: "Guest",
   movies: [],
 };
 
-export const accountReducer = (state: State, action: AccountAction) => {
+export const accountReducer = (
+  state: AccountStateType,
+  action: AccountAction
+) => {
   switch (action.type) {
     case SET_NAME: {
       return { ...state, name: action.payload.name };

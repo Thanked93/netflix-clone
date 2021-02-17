@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { ADD, DELETE } from "../../reducer/accountReducer";
-import AccountReducerContext from "../../reducer/accountReducerContext";
+import StoreContext from "../../context/StoreContext";
+import { ADD, DELETE } from "../../reducer/account/accountReducer";
 import "./ListButton.css";
 
 interface ListButtonProps {
@@ -9,14 +9,16 @@ interface ListButtonProps {
 }
 
 const ListButton: React.FC<ListButtonProps> = ({ movie, query }) => {
-  const { state, dispatch } = useContext(AccountReducerContext);
+  const { accountDispatch, accountState } = useContext(StoreContext);
   return (
     <>
-      {state.movies.filter((savedMovie) => savedMovie.id === movie.id).length >
-      0 ? (
+      {accountState.movies.filter((savedMovie) => savedMovie.id === movie.id)
+        .length > 0 ? (
         <button
           className="listButton remove movie__dummy"
-          onClick={() => dispatch({ type: DELETE, payload: { id: movie.id } })}
+          onClick={() =>
+            accountDispatch({ type: DELETE, payload: { id: movie.id } })
+          }
         >
           Remove
         </button>
@@ -24,7 +26,7 @@ const ListButton: React.FC<ListButtonProps> = ({ movie, query }) => {
         <button
           className="listButton add  movie__dummy"
           onClick={() =>
-            dispatch({
+            accountDispatch({
               type: ADD,
               payload: { movie: movie, id: movie.id, query: query },
             })

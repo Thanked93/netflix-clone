@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../api/axios";
-import requests from "../../api/requests";
+import { NETFLIX_ORIGINALS } from "../../api/requests";
 import ListButton from "../button/ListButton";
 import Container from "../movie/container/Container";
 import "./Banner.css";
@@ -13,7 +13,7 @@ const Banner: React.FC = () => {
   async function toggleMovie() {
     if (!fetchedExtended) {
       await axios
-        .get(`/tv/${movie.id}?${requests.fetchMovie}`)
+        .get(`/${NETFLIX_ORIGINALS.query}/${movie.id}?${NETFLIX_ORIGINALS.url}`)
         .then((res) => {
           setMovie(res.data);
           setFetchExtended(true);
@@ -26,7 +26,7 @@ const Banner: React.FC = () => {
   useEffect(() => {
     async function fetch() {
       await axios
-        .get(requests.fetchNetflixOriginals)
+        .get(NETFLIX_ORIGINALS.url)
         .then((res) => {
           setMovie(
             res.data.results[

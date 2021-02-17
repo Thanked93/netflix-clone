@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../../api/axios";
-import requests from "../../../api/requests";
+import { EXTEND_ENTRY } from "../../../api/requests";
 import Info from "../info/Info";
 import Listing from "../listing/Listing";
 import Player from "../player/Player";
@@ -19,12 +19,12 @@ export const Container: React.FC<ContainerProps> = ({
   showComponent,
 }) => {
   const [fullMovie, setFullMovie] = useState<any>(null);
-
+  console.log("is open");
   useEffect(() => {
     async function fetch() {
       if (fullMovie === null) {
         await axios
-          .get(`/${query}/${movie.id}?${requests.fetchMovie}`)
+          .get(`/${query}/${movie.id}?${EXTEND_ENTRY.url}`)
           .then((res) => {
             setFullMovie(res.data);
           })
@@ -32,7 +32,7 @@ export const Container: React.FC<ContainerProps> = ({
       }
     }
     fetch();
-  }, [query]);
+  }, [query, setFullMovie, fullMovie, movie.id]);
 
   useEffect(() => {
     function closeComponent(e: any) {

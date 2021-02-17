@@ -6,10 +6,13 @@
   margin-right: 5px;
   margin-left: 5px;
   cursor: pointer;
+}
+
+.scale {
   transition: height 500ms;
 }
 
-.preview:hover {
+.scale:hover {
   height: 400px;
 }
 

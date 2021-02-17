@@ -1,25 +1,13 @@
-import React, { useEffect, useState } from "react";
-import axios from "../../api/axios";
-import requests from "../../api/requests";
+import React, { useState } from "react";
 import Preview from "../preview/Preview";
-
 import "./Row.css";
+
 interface RowProps {
-  title: string;
-  fetchUrl: string;
+  itemObject: any;
   row: number;
-  savedMovies?: any[];
-  isLarge?: boolean;
 }
 
-export const Row: React.FC<RowProps> = ({
-  title,
-  fetchUrl,
-  row,
-  savedMovies = null,
-  isLarge = false,
-}) => {
-  const [movies, setMovies] = useState<any>([]);
+export const Row: React.FC<RowProps> = ({ itemObject, row }) => {
   const [leftArrow, setLeftArrow] = useState<boolean>(false);
   const [rightArrow, setRightArrow] = useState<boolean>(true);
 
@@ -49,44 +37,27 @@ export const Row: React.FC<RowProps> = ({
     }
   };
 
-  useEffect(() => {
-    async function fetch() {
-      await axios
-        .get(fetchUrl)
-        .then((res) => {
-          setMovies(res.data.results);
-        })
-        .catch((err) => {});
-    }
-    if (savedMovies !== null) {
-      setMovies(savedMovies);
-    } else {
-      fetch();
-    }
-  }, [fetchUrl, savedMovies]);
-
   return (
     <div className="row">
-      <h2 className="row__title">{title}</h2>
+      <h2 className="row__title">{itemObject.title}</h2>
       <div className="row__previews" onScroll={scrollCheck}>
-        {movies.map((movie: any) => {
+        {itemObject.items.map((movie: any) => {
           return (
             <Preview
               key={movie.id}
               movie={movie}
-              query={
-                fetchUrl === requests.fetchNetflixOriginals ? "tv" : "movie"
-              }
-              isLarge={isLarge}
+              query={itemObject.query}
+              isLarge={itemObject.isLarge}
             />
           );
         })}
+        <div className="empty"></div>
         {leftArrow && (
           <div
             className="row__arrowLeft row__button"
             style={{
-              height: isLarge ? "300px" : "240px",
-              marginBottom: isLarge ? 0 : "60px",
+              height: itemObject.isLarge ? "300px" : "240px",
+              marginBottom: itemObject.isLarge ? 0 : "60px",
             }}
             onClick={() => scroll(-1)}
           >
@@ -97,8 +68,8 @@ export const Row: React.FC<RowProps> = ({
           <div
             className="row__arrowRight row__button"
             style={{
-              height: isLarge ? "300px" : "240px",
-              marginBottom: isLarge ? 0 : "60px",
+              height: itemObject.isLarge ? "300px" : "240px",
+              marginBottom: itemObject.isLarge ? 0 : "60px",
             }}
             onClick={() => scroll(1)}
           >

@@ -75,3 +75,8 @@
   visibility: visible;
   transform: translateX(0%);
 }
+
+.empty {
+  min-width: 100px;
+  min-height: 126px;
+}
