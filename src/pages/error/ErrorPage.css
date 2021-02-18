@@ -1,0 +1,29 @@
+.errorpage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 5% 0 0 0;
+  color: white;
+}
+
+.errorpage__button {
+  cursor: pointer;
+  border: none;
+  color: #fff;
+  outline: none;
+  font-weight: 700;
+  border-radius: 0.2vw;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  background-color: rgba(51, 51, 51, 0.5);
+}
+.errorpage__button:hover {
+  cursor: pointer;
+  color: #111;
+  background-color: #fff;
+  transition: all 0.2s;
+}

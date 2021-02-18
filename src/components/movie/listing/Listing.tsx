@@ -9,7 +9,7 @@ interface ListingProps {
 
 const Listing: React.FC<ListingProps> = ({ items, title }) => {
   if (!items) return null;
-  const itemAsString = ConcatItems(items);
+  const itemAsString = items.length === 0 ? "not found" : ConcatItems(items);
   return (
     <div className="listing movie">
       <div className="listing__title movie">{`${title}${

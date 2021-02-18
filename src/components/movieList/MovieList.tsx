@@ -4,18 +4,19 @@ import "./MovieList.css";
 
 interface MovieListProps {
   movies: any[];
+  query?: string;
 }
 
-const MovieList: React.FC<MovieListProps> = ({ movies }) => {
-  console.log("ere");
+const MovieList: React.FC<MovieListProps> = ({ movies, query = "tv" }) => {
+  if (movies.length === 0) return <div>No Movies found</div>;
   return (
     <div className="movielist">
       {movies.map((movie) => {
         return (
-          <div key={movie.movie.id} className="movieList__item">
+          <div key={movie.id} className="movieList__item">
             <Preview
-              query={"tv"}
-              movie={movie.movie}
+              query={query}
+              movie={movie}
               isLarge={true}
               onlyPreview={true}
             />

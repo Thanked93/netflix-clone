@@ -47,6 +47,7 @@
 }
 
 .account__button:hover {
+  cursor: pointer;
   color: #111;
   background-color: #fff;
   transition: all 0.2s;

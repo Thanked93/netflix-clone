@@ -66,3 +66,5 @@ export const requests: Request[] = [
   HORROR_MOVIES,
   DOCUMENTARY_MOVIES,
 ];
+
+export const SEARCH_MOVIE = `/search/movie?api_key=${KEY}&query=`;

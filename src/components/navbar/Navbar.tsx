@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
+import Search from "./search/Search";
+import NavLinks from "./navlinks/NavLinks";
 
 const Navbar: React.FC = () => {
   const [show, toggleShow] = useState<boolean>(false);
@@ -21,16 +23,17 @@ const Navbar: React.FC = () => {
   return (
     <div className={`${show ? " navbar navbar__darken" : "navbar"}`}>
       <div className="navbar__contents">
-        <Link to="/" style={{ textDecoration: "none" }}>
-          <div className="navbar__logo">MovieBox</div>
-        </Link>
-        <Link to="/account">
-          <img
-            className="navbar__avatar"
-            src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png"
-            alt="navbar-avatar"
-          />
-        </Link>
+        <NavLinks />
+        <div className="navbar__right">
+          <Search />
+          <Link to="/account">
+            <img
+              className="navbar__avatar"
+              src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png"
+              alt="navbar-avatar"
+            />
+          </Link>
+        </div>
       </div>
     </div>
   );

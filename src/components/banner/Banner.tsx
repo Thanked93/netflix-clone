@@ -1,45 +1,15 @@
-import React, { useEffect, useState } from "react";
-import axios from "../../api/axios";
-import { NETFLIX_ORIGINALS } from "../../api/requests";
+import React, { useState } from "react";
 import ListButton from "../button/ListButton";
 import Container from "../movie/container/Container";
 import "./Banner.css";
 
-const Banner: React.FC = () => {
+interface BannerProps {
+  movie: any;
+}
+
+const Banner: React.FC<BannerProps> = ({ movie }) => {
   const [showMovie, setShowMovie] = useState(false);
-  const [movie, setMovie] = useState<any>([]);
-  const [fetchedExtended, setFetchExtended] = useState<boolean>(false);
-
-  async function toggleMovie() {
-    if (!fetchedExtended) {
-      await axios
-        .get(`/${NETFLIX_ORIGINALS.query}/${movie.id}?${NETFLIX_ORIGINALS.url}`)
-        .then((res) => {
-          setMovie(res.data);
-          setFetchExtended(true);
-        })
-        .catch((err) => {});
-    }
-    setShowMovie(!showMovie);
-  }
-
-  useEffect(() => {
-    async function fetch() {
-      await axios
-        .get(NETFLIX_ORIGINALS.url)
-        .then((res) => {
-          setMovie(
-            res.data.results[
-              Math.floor(Math.random() * (res.data.results.length - 2))
-            ]
-          );
-        })
-        .catch((err) => {});
-    }
-    fetch();
-  }, []);
-
-  if (movie === null) return null;
+  if (!movie) return null;
   return (
     <>
       <header
@@ -56,7 +26,10 @@ const Banner: React.FC = () => {
             {movie?.title || movie?.name || movie?.original_name}
           </h1>
           <div className="banner__buttons">
-            <button className="banner__button" onClick={toggleMovie}>
+            <button
+              className="banner__button"
+              onClick={() => setShowMovie(true)}
+            >
               Show
             </button>
             <ListButton movie={movie} query="tv" />

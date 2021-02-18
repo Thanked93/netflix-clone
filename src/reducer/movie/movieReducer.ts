@@ -25,7 +25,6 @@ export interface Item {
 export const initialMovieState: MovieStateType = { movies: [] };
 
 export const movieReducer = (state: MovieStateType, action: MovieAction) => {
-  console.log("jer");
   switch (action.type) {
     case ADD_ENTRY: {
       const { key, query, title, items, isLarge } = action.payload;

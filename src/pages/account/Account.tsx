@@ -1,20 +1,18 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import MovieList from "../components/movieList/MovieList";
-import Navbar from "../components/navbar/Navbar";
-import StoreContext from "../context/StoreContext";
-import useFetchToState from "../customHooks/useFetchToState";
+import MovieList from "../../components/movieList/MovieList";
+import StoreContext from "../../context/StoreContext";
+import useFetchToState from "../../customHooks/useFetchToState";
 import "./Account.css";
 interface AccountProps {}
 
 export const Account: React.FC<AccountProps> = () => {
   const { accountState } = useContext(StoreContext);
   if (!useFetchToState) {
-    return <div>ello</div>;
+    return <div></div>;
   }
   return (
     <>
-      <Navbar />
       <div className="account">
         <div>
           <h2 className="account__greeting">Hello {accountState.name}</h2>

@@ -19,7 +19,7 @@ export const Container: React.FC<ContainerProps> = ({
   showComponent,
 }) => {
   const [fullMovie, setFullMovie] = useState<any>(null);
-  console.log("is open");
+  console.log(query, movie);
   useEffect(() => {
     async function fetch() {
       if (fullMovie === null) {
@@ -44,7 +44,6 @@ export const Container: React.FC<ContainerProps> = ({
     return () => window.removeEventListener("click", closeComponent);
   }, [showComponent]);
 
-  console.log(fullMovie);
   if (fullMovie)
     return (
       <div className="container">

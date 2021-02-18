@@ -26,8 +26,8 @@ function useFetchToState(dispatch: React.Dispatch<MovieAction>) {
           setSuccess(false);
         });
     }
-    requests.forEach((request: Request) => {
-      fetch(request);
+    requests.forEach(async (request: Request) => {
+      await fetch(request);
     });
   }, [dispatch]);
   return success;
