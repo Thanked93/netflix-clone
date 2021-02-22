@@ -3,7 +3,7 @@
   padding-right: 5%;
   width: 90%;
   height: 4vh;
-  background: linear-gradient(180deg, transparent, #050505, #1e1e1e);
+  background: linear-gradient(180deg, transparent, #050505, #181818);
   transform: translateY(-2vh);
 }
 .titlebar__wrapper {

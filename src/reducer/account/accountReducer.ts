@@ -1,3 +1,5 @@
+import { Movie } from "../../interfaces/Movie";
+
 export const SET_NAME = "SET_NAME";
 export const ADD = "ADD";
 export const DELETE = "DELETE";
@@ -5,13 +7,20 @@ export const CHANGE_QUERY = "CHANGE_QUERY";
 
 interface Action {
   type: string;
-  payload: any;
+  payload: DeleteAction | NameAction | AddAction | ChangeQueryAction;
 }
 
-interface Movie {
-  movie: any;
-  query: string;
+interface DeleteAction {
   id: number;
+}
+interface AddAction {
+  movie: Movie;
+}
+interface ChangeQueryAction {
+  searchQuery: string;
+}
+interface NameAction {
+  name: string;
 }
 
 export type AccountAction = Action;
@@ -24,7 +33,7 @@ export type AccountState = {
 
 export type AccountStateType = AccountState;
 
-export const initialAccountState = {
+export const initialAccountState: AccountStateType = {
   name: "Guest",
   searchQuery: "",
   movies: [],
@@ -33,33 +42,31 @@ export const initialAccountState = {
 export const accountReducer = (
   state: AccountStateType,
   action: AccountAction
-) => {
+): AccountStateType => {
   switch (action.type) {
     case SET_NAME: {
-      return { ...state, name: action.payload.name };
+      const { name } = action.payload as NameAction;
+      return { ...state, name: name };
     }
     case ADD: {
+      const { movie } = action.payload as AddAction;
       return {
         ...state,
-        movies: [
-          ...state.movies,
-          {
-            id: action.payload.id,
-            query: action.payload.query,
-            movie: action.payload.movie,
-          },
-        ],
+        movies: [...state.movies, movie],
       };
     }
     case DELETE: {
+      const { id } = action.payload as DeleteAction;
       return {
         ...state,
-        movies: state.movies.filter((movie) => movie.id !== action.payload.id),
+        movies: state.movies.filter((movie) => movie.id !== id),
       };
     }
-    case CHANGE_QUERY:
-      return { ...state, searchQuery: action.payload.searchQuery };
+    case CHANGE_QUERY: {
+      const { searchQuery } = action.payload as ChangeQueryAction;
+      return { ...state, searchQuery: searchQuery };
+    }
     default:
-      return state;
+      return { ...state };
   }
 };

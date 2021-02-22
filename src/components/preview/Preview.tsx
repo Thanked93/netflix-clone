@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import { Movie } from "../../interfaces/Movie";
 import ListButton from "../button/ListButton";
 import Container from "../movie/container/Container";
 import "./Preview.css";
 interface PreviewProps {
-  movie: any;
+  movie: Movie;
   query: string;
   isLarge: boolean;
   onlyPreview?: boolean;
@@ -29,10 +30,10 @@ const Preview: React.FC<PreviewProps> = ({
         <img
           className={isLarge ? "preview__img" : "preview__imgSmall"}
           alt=""
-          src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+          src={`https://image.tmdb.org/t/p/original/${movie.image}`}
         />
         <div className={`preview__listButton ${isLarge ? "big" : "small"}`}>
-          <ListButton movie={movie} query={query} />
+          <ListButton movie={movie} />
         </div>
       </div>
 

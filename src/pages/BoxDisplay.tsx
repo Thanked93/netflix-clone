@@ -4,11 +4,12 @@ import { parseResponse } from "../api/parse";
 import { SEARCH_MOVIE } from "../api/requests";
 import MovieList from "../components/movieList/MovieList";
 import StoreContext from "../context/StoreContext";
+import { Movie } from "../interfaces/Movie";
 
 interface BoxDisplayProps {}
 
 const BoxDisplay: React.FC<BoxDisplayProps> = () => {
-  const [movieList, setMovieList] = useState<any[]>([]);
+  const [movieList, setMovieList] = useState<Movie[]>([]);
   const { accountState } = useContext(StoreContext);
 
   useEffect(() => {
@@ -18,9 +19,14 @@ const BoxDisplay: React.FC<BoxDisplayProps> = () => {
           .get(SEARCH_MOVIE + accountState.searchQuery)
           .then((res) => {
             let fetchedMovies = res.data.results;
-            console.log(fetchedMovies);
+
             if (fetchedMovies.length > 0) {
-              setMovieList(parseResponse(fetchedMovies));
+              let items: Movie[] = [];
+              fetchedMovies.forEach((m: any) => {
+                let item = parseResponse(m, "movie", false);
+                if (item) items.push(item);
+              });
+              setMovieList(items);
             }
           })
           .catch((err) => console.log(err));
@@ -28,10 +34,13 @@ const BoxDisplay: React.FC<BoxDisplayProps> = () => {
     }
     fetch();
   }, [accountState.searchQuery, setMovieList]);
-
+  if (movieList.length === 0) return null;
   return (
     <>
-      <div className="boxdisplay" style={{ margin: "5% 10% 0 5%" }}>
+      <div
+        className="boxdisplay"
+        style={{ width: "80vw", margin: "10% 10% 0 10%" }}
+      >
         <MovieList movies={movieList} query="movie" />
       </div>
     </>

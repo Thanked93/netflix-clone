@@ -1,29 +1,41 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { NETFLIX_ORIGINALS } from "../../api/requests";
+import StoreContext from "../../context/StoreContext";
+import { Movie } from "../../interfaces/Movie";
+import { ItemEntry } from "../../reducer/movie/movieReducer";
 import ListButton from "../button/ListButton";
 import Container from "../movie/container/Container";
 import "./Banner.css";
 
-interface BannerProps {
-  movie: any;
-}
-
-const Banner: React.FC<BannerProps> = ({ movie }) => {
+const Banner: React.FC = ({ children }) => {
   const [showMovie, setShowMovie] = useState(false);
+  const [movie, setMovie] = useState<Movie | null>(null);
+  const { movieState } = useContext(StoreContext);
+
+  useEffect(() => {
+    let m: ItemEntry = movieState.filter(
+      (item: ItemEntry) => item.key === NETFLIX_ORIGINALS.url
+    )[0];
+    setMovie(m.items[Math.floor(Math.random() * m.items.length - 1)]);
+  }, [setMovie, movieState]);
+
   if (!movie) return null;
   return (
     <>
       <header
         className="banner"
         style={{
-          backgroundSize: "cover",
           backgroundImage:
-            movie.backdrop_path &&
-            `url("https://image.tmdb.org/t/p/original/${movie?.backdrop_path}")`,
+            movie.bannerImage &&
+            `url("https://image.tmdb.org/t/p/original/${movie.bannerImage}")`,
         }}
       >
         <div className="banner__contents">
-          <h1 className="banner__title">
-            {movie?.title || movie?.name || movie?.original_name}
+          <h1
+            className="banner__title"
+            style={{ fontSize: movie.title.length > 16 ? "5vmin" : "8vmin" }}
+          >
+            {movie.title}
           </h1>
           <div className="banner__buttons">
             <button
@@ -32,7 +44,7 @@ const Banner: React.FC<BannerProps> = ({ movie }) => {
             >
               Show
             </button>
-            <ListButton movie={movie} query="tv" />
+            <ListButton movie={movie} />
           </div>
           <h1 className="banner__description">
             {movie?.overview?.length > 200
@@ -41,6 +53,7 @@ const Banner: React.FC<BannerProps> = ({ movie }) => {
           </h1>
         </div>
         <div className="banner--fadebottom" />
+        {children}
       </header>
       {showMovie && movie && (
         <Container movie={movie} showComponent={setShowMovie} query={"tv"} />

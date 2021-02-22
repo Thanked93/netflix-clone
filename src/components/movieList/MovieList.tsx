@@ -14,12 +14,7 @@ const MovieList: React.FC<MovieListProps> = ({ movies, query = "tv" }) => {
       {movies.map((movie) => {
         return (
           <div key={movie.id} className="movieList__item">
-            <Preview
-              query={query}
-              movie={movie}
-              isLarge={true}
-              onlyPreview={true}
-            />
+            <Preview query={query} movie={movie} isLarge={true} />
           </div>
         );
       })}

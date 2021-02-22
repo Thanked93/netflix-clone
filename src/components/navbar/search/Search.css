@@ -3,16 +3,16 @@
   align-items: center;
 }
 
-.search__container:hover .search__input {
-  width: 400px;
-  visibility: visible;
-  transform: ease-in 0.5s;
+.search__container {
+  display: flex;
+  align-items: center;
 }
 
 .search__input {
-  width: 0;
+  background-color: #181818;
+  color: white;
+  width: 20vw;
   height: 20px;
   outline: none;
   border: none;
-  visibility: hidden;
 }

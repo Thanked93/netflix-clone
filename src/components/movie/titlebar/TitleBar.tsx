@@ -4,20 +4,16 @@ import "./TitleBar.css";
 
 interface TitleBarProps {
   movie: any;
-  query: string;
 }
 
-const TitleBar: React.FC<TitleBarProps> = ({ movie, query }) => {
+const TitleBar: React.FC<TitleBarProps> = ({ movie }) => {
   return (
     <div className="titlebar movie">
       <div className="titlebar__wrapper movie">
         <div className="titlebar_title movie">
-          {movie?.title ||
-            movie?.name ||
-            movie?.original_name ||
-            "No Title found"}
+          {movie.title || "No Title found"}
         </div>
-        <ListButton movie={movie} query={query} />
+        <ListButton movie={movie} />
       </div>
     </div>
   );

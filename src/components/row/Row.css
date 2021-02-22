@@ -1,12 +1,15 @@
 .row {
+  display: flex;
+  flex-direction: column;
   margin: 20px 60px;
   color: white;
 }
 
 .row__title {
+  margin-top: 0;
+  position: absolute;
   font-size: 2rem;
   font-weight: 600;
-  transform: translateY(55px);
 }
 
 .row__previews {
@@ -17,6 +20,8 @@
   min-height: 400px;
   transition: 500ms;
   scroll-behavior: smooth;
+  margin-top: 15px;
+  margin-bottom: 0;
 }
 
 .row__previews::-webkit-scrollbar {

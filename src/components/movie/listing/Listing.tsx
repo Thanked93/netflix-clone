@@ -1,15 +1,14 @@
 import React from "react";
-import { ConcatItems } from "./ConcatItems";
 import "./Listing.css";
 
 interface ListingProps {
-  items: Array<{ name: string }>;
+  items: string[];
   title: string;
 }
 
 const Listing: React.FC<ListingProps> = ({ items, title }) => {
-  if (!items) return null;
-  const itemAsString = items.length === 0 ? "not found" : ConcatItems(items);
+  if (!items || items.length === 0) return null;
+  const itemAsString = items.join(", ");
   return (
     <div className="listing movie">
       <div className="listing__title movie">{`${title}${
@@ -17,7 +16,7 @@ const Listing: React.FC<ListingProps> = ({ items, title }) => {
       }`}</div>
       <div className="listing__items movie">
         {itemAsString.length > 80
-          ? itemAsString.substring(0, 77) + " and more"
+          ? itemAsString.substring(0, 73) + "... and more"
           : itemAsString}
       </div>
     </div>

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "../api/axios";
+import { parseResponse } from "../api/parse";
 import { Request, requests } from "../api/requests";
+import { Movie } from "../interfaces/Movie";
 import { ADD_ENTRY, MovieAction } from "../reducer/movie/movieReducer";
 
 function useFetchToState(dispatch: React.Dispatch<MovieAction>) {
@@ -11,18 +13,21 @@ function useFetchToState(dispatch: React.Dispatch<MovieAction>) {
       await axios
         .get(request.url)
         .then((res) => {
+          const items: Movie[] = [];
+          res.data.results.forEach((item: any) => {
+            let movie = parseResponse(item, request.query, false);
+            if (movie) items.push(movie);
+          });
           dispatch({
             type: ADD_ENTRY,
             payload: {
-              items: res.data.results,
-              query: request.query,
+              items: items,
               title: request.title,
               key: request.url,
-              isLarge: request.isLarge,
             },
           });
         })
-        .catch((_) => {
+        .catch((e) => {
           setSuccess(false);
         });
     }

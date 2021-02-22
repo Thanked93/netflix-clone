@@ -1,14 +1,14 @@
 import React, { useContext } from "react";
 import StoreContext from "../../context/StoreContext";
+import { Movie } from "../../interfaces/Movie";
 import { ADD, DELETE } from "../../reducer/account/accountReducer";
 import "./ListButton.css";
 
 interface ListButtonProps {
-  movie: any;
-  query: string;
+  movie: Movie;
 }
 
-const ListButton: React.FC<ListButtonProps> = ({ movie, query }) => {
+const ListButton: React.FC<ListButtonProps> = ({ movie }) => {
   const { accountDispatch, accountState } = useContext(StoreContext);
   return (
     <>
@@ -28,7 +28,7 @@ const ListButton: React.FC<ListButtonProps> = ({ movie, query }) => {
           onClick={() =>
             accountDispatch({
               type: ADD,
-              payload: { movie: movie, id: movie.id, query: query },
+              payload: { movie: movie },
             })
           }
         >

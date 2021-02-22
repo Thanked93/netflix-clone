@@ -11,7 +11,7 @@ const Search: React.FC<SearchProps> = () => {
   const router = useHistory();
   const { accountState, accountDispatch } = useContext(StoreContext);
   const [pushBrowse, setPushBrowse] = useState<boolean>(false);
-
+  const [showInput, setShowInput] = useState<boolean>(false);
   useEffect(() => {
     if (pushBrowse) {
       if (!location.pathname?.includes("browse")) {
@@ -24,22 +24,28 @@ const Search: React.FC<SearchProps> = () => {
   return (
     <div className="search" tabIndex={1}>
       <div className="search__container">
-        <BiSearchAlt2 color="white" size="30px" />
-
-        <input
-          onChange={(e) => {
-            setPushBrowse(true);
-            accountDispatch({
-              type: CHANGE_QUERY,
-              payload: { searchQuery: e.target.value },
-            });
-          }}
-          className="search__input"
-          type="text"
-          maxLength={20}
-          value={accountState.searchQuery}
-          placeholder="Movie"
+        <BiSearchAlt2
+          color="white"
+          size="30px"
+          tabIndex={1}
+          onClick={() => setShowInput(!showInput)}
         />
+        {showInput && (
+          <input
+            onChange={(e) => {
+              setPushBrowse(true);
+              accountDispatch({
+                type: CHANGE_QUERY,
+                payload: { searchQuery: e.target.value },
+              });
+            }}
+            className="search__input"
+            type="text"
+            maxLength={20}
+            value={accountState.searchQuery}
+            placeholder="Movie"
+          />
+        )}
       </div>
     </div>
   );

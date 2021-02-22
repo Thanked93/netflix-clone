@@ -7,29 +7,10 @@
   color: #fff;
 }
 
-.account__movie {
-  display: inline-block;
-  margin-right: 5px;
-  margin-bottom: 5px;
-  height: 350px;
-  width: 230px;
-}
-
 .account__movieList {
-  float: inline-end;
-  padding: 20px;
-  height: auto;
-  background-color: #222;
-}
-
-.account__img {
-  height: 320px;
-  width: 230px;
-  object-fit: contain;
-}
-
-.account__listButton {
   margin-left: 20px;
+  margin-right: 20px;
+  background-color: #222;
 }
 
 .account__button {

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../../api/axios";
+import { parseResponse } from "../../../api/parse";
 import { EXTEND_ENTRY } from "../../../api/requests";
+import { Movie } from "../../../interfaces/Movie";
 import Info from "../info/Info";
 import Listing from "../listing/Listing";
 import Player from "../player/Player";
@@ -8,7 +10,7 @@ import TitleBar from "../titlebar/TitleBar";
 import "./Container.css";
 
 interface ContainerProps {
-  movie: any;
+  movie: Movie;
   query: string;
   showComponent: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -18,21 +20,22 @@ export const Container: React.FC<ContainerProps> = ({
   query,
   showComponent,
 }) => {
-  const [fullMovie, setFullMovie] = useState<any>(null);
-  console.log(query, movie);
+  const [fullMovie, setFullMovie] = useState<Movie | null>(null);
   useEffect(() => {
     async function fetch() {
       if (fullMovie === null) {
         await axios
-          .get(`/${query}/${movie.id}?${EXTEND_ENTRY.url}`)
+          .get(`/${movie.query}/${movie.id}?${EXTEND_ENTRY.url}`)
           .then((res) => {
-            setFullMovie(res.data);
+            const item = parseResponse(res.data, movie.query, true);
+
+            setFullMovie(item);
           })
           .catch((err) => {});
       }
     }
-    fetch();
-  }, [query, setFullMovie, fullMovie, movie.id]);
+    if (!movie.isExtended) fetch();
+  }, [query, setFullMovie, fullMovie, movie]);
 
   useEffect(() => {
     function closeComponent(e: any) {
@@ -54,8 +57,11 @@ export const Container: React.FC<ContainerProps> = ({
           >
             x
           </div>
-          <Player movie={fullMovie} />
-          <TitleBar movie={fullMovie} query={query} />
+          <Player
+            movieUrl={fullMovie.extended.videos[0]}
+            imageUrl={fullMovie.image}
+          />
+          <TitleBar movie={fullMovie} />
 
           <div className="container__innerWrapper movie">
             <div className="container__left movie">
@@ -63,9 +69,9 @@ export const Container: React.FC<ContainerProps> = ({
               <div className="container__overview movie">{movie.overview}</div>
             </div>
             <div className="container__listing">
-              <Listing items={fullMovie.credits.cast} title="actor" />
-              <Listing items={fullMovie.genres} title="genre" />
-              <Listing items={fullMovie.created_by} title="author" />
+              <Listing items={fullMovie.extended.actors} title="actor" />
+              <Listing items={fullMovie.extended.genres} title="genre" />
+              <Listing items={fullMovie.extended.author} title="author" />
             </div>
           </div>
         </div>

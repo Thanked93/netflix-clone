@@ -2,20 +2,19 @@ import React from "react";
 import ReactPlayer from "react-player/lazy";
 
 interface PlayerProps {
-  movie: any;
+  imageUrl: string;
+  movieUrl?: string;
 }
 
-const Player: React.FC<PlayerProps> = ({ movie }) => {
-  const key = movie.videos?.results[0]?.key;
-
-  if (key) {
+const Player: React.FC<PlayerProps> = ({ movieUrl, imageUrl }) => {
+  if (movieUrl) {
     return (
       <ReactPlayer
         playing={true}
         height="45vh"
         width="100%"
         controls={false}
-        url={`https://www.youtube.com/watch?v=${key}`}
+        url={`https://www.youtube.com/watch?v=${movieUrl}`}
       />
     );
   }
@@ -28,7 +27,7 @@ const Player: React.FC<PlayerProps> = ({ movie }) => {
         backgroundColor: "#000",
         objectFit: "contain",
       }}
-      src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
+      src={`https://image.tmdb.org/t/p/original/${imageUrl}`}
       alt=""
     />
   );

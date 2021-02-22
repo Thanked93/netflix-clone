@@ -1,17 +1,17 @@
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Navbar from "./components/navbar/Navbar";
+import StoreContext from "./context/StoreContext";
+import useFetchToState from "./customHooks/useFetchToState";
+import Account from "./pages/account/Account";
+import BoxDisplay from "./pages/BoxDisplay";
+import ErrorPage from "./pages/error/ErrorPage";
 import Home from "./pages/home/Home";
 import {
   accountReducer,
   initialAccountState,
 } from "./reducer/account/accountReducer";
-import StoreContext from "./context/StoreContext";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Account from "./pages/account/Account";
 import { initialMovieState, movieReducer } from "./reducer/movie/movieReducer";
-import useFetchToState from "./customHooks/useFetchToState";
-import BoxDisplay from "./pages/BoxDisplay";
-import Navbar from "./components/navbar/Navbar";
-import ErrorPage from "./pages/error/ErrorPage";
 
 function App() {
   const [accountState, accountDispatch] = useReducer(
@@ -22,10 +22,14 @@ function App() {
     movieReducer,
     initialMovieState
   );
+  useEffect(() => {
+    console.log("Render main page");
+  }, []);
+
   let show = useFetchToState(movieDispatch);
 
   if (!show) {
-    return <ErrorPage errorMessage="Could not fetch the Data!" />;
+    return null;
   }
   return (
     <StoreContext.Provider
@@ -34,10 +38,12 @@ function App() {
       <div className="App">
         <Router>
           <Navbar />
-          <Route component={Home} exact path="/" />
-          <Route path="/account" component={Account} />
-          <Route path="/browse" component={BoxDisplay} />
-          <Route component={ErrorPage} />
+          <Switch>
+            <Route component={Home} exact path="/" />
+            <Route path="/account" component={Account} />
+            <Route path="/browse" component={BoxDisplay} />
+            <Route component={ErrorPage} />
+          </Switch>
         </Router>
       </div>
     </StoreContext.Provider>

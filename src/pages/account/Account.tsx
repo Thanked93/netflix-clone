@@ -19,7 +19,9 @@ export const Account: React.FC<AccountProps> = () => {
         </div>
 
         {accountState.movies.length > 0 ? (
-          <MovieList movies={accountState.movies} />
+          <div className="account__movieList">
+            <MovieList movies={accountState.movies} />
+          </div>
         ) : (
           <div>Your movie list is currently empty</div>
         )}

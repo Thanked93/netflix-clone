@@ -1,13 +1,21 @@
 import React, { useState } from "react";
+import { Movie } from "../../interfaces/Movie";
 import Preview from "../preview/Preview";
 import "./Row.css";
 
 interface RowProps {
-  itemObject: any;
+  itemObject: Movie[];
+  title: string;
   row: number;
+  isLarge?: boolean;
 }
 
-export const Row: React.FC<RowProps> = ({ itemObject, row }) => {
+export const Row: React.FC<RowProps> = ({
+  itemObject,
+  row,
+  title,
+  isLarge = false,
+}) => {
   const [leftArrow, setLeftArrow] = useState<boolean>(false);
   const [rightArrow, setRightArrow] = useState<boolean>(true);
 
@@ -36,18 +44,18 @@ export const Row: React.FC<RowProps> = ({ itemObject, row }) => {
       if (!rightArrow) setRightArrow(true);
     }
   };
-
+  if (!itemObject) return null;
   return (
     <div className="row">
-      <h2 className="row__title">{itemObject.title}</h2>
-      <div className="row__previews" onScroll={scrollCheck}>
-        {itemObject.items.map((movie: any) => {
+      <h2 className="row__title">{title}</h2>
+      <div className={"row__previews"} onScroll={scrollCheck}>
+        {itemObject.map((movie: any) => {
           return (
             <Preview
               key={movie.id}
               movie={movie}
-              query={itemObject.query}
-              isLarge={itemObject.isLarge}
+              query={movie.query}
+              isLarge={isLarge}
             />
           );
         })}
@@ -56,8 +64,8 @@ export const Row: React.FC<RowProps> = ({ itemObject, row }) => {
           <div
             className="row__arrowLeft row__button"
             style={{
-              height: itemObject.isLarge ? "300px" : "240px",
-              marginBottom: itemObject.isLarge ? 0 : "60px",
+              height: isLarge ? "300px" : "240px",
+              marginBottom: isLarge ? 0 : "60px",
             }}
             onClick={() => scroll(-1)}
           >
@@ -68,8 +76,8 @@ export const Row: React.FC<RowProps> = ({ itemObject, row }) => {
           <div
             className="row__arrowRight row__button"
             style={{
-              height: itemObject.isLarge ? "300px" : "240px",
-              marginBottom: itemObject.isLarge ? 0 : "60px",
+              height: isLarge ? "300px" : "240px",
+              marginBottom: isLarge ? 0 : "60px",
             }}
             onClick={() => scroll(1)}
           >

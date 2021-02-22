@@ -1,7 +1,6 @@
 .preview {
-  display: inline-block;
+  display: flex;
   position: relative;
-  height: 300px;
   width: fit-content;
   margin-right: 5px;
   margin-left: 5px;
@@ -9,11 +8,13 @@
 }
 
 .scale {
+  height: 300px;
+
   transition: height 500ms;
 }
 
 .scale:hover {
-  height: 400px;
+  height: 360px;
 }
 
 .preview__img {
