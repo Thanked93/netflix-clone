@@ -64,8 +64,8 @@ export const Row: React.FC<RowProps> = ({
           <div
             className="row__arrowLeft row__button"
             style={{
-              height: isLarge ? "300px" : "240px",
-              marginBottom: isLarge ? 0 : "60px",
+              height: isLarge ? "30vh" : "24vh",
+              marginBottom: isLarge ? "" : "6vh",
             }}
             onClick={() => scroll(-1)}
           >
@@ -76,8 +76,8 @@ export const Row: React.FC<RowProps> = ({
           <div
             className="row__arrowRight row__button"
             style={{
-              height: isLarge ? "300px" : "240px",
-              marginBottom: isLarge ? 0 : "60px",
+              height: isLarge ? "30vh" : "24vh",
+              marginBottom: isLarge ? "" : "6vh",
             }}
             onClick={() => scroll(1)}
           >

@@ -16,9 +16,9 @@ const NavLinks: React.FC = () => {
         <Link
           className="navLinks__link"
           to="/account"
-          style={{ textDecoration: "none" }}
+          style={{ textDecoration: "none", marginLeft: "5px" }}
         >
-          My Account
+          Account
         </Link>
       </div>
     </div>

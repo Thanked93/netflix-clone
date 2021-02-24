@@ -22,9 +22,6 @@ function App() {
     movieReducer,
     initialMovieState
   );
-  useEffect(() => {
-    console.log("Render main page");
-  }, []);
 
   let show = useFetchToState(movieDispatch);
 

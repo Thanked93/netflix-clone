@@ -17,7 +17,7 @@
   align-items: center;
   overflow-y: hidden;
   overflow-x: scroll;
-  min-height: 400px;
+  height: 40vh;
   transition: 500ms;
   scroll-behavior: smooth;
   margin-top: 15px;
@@ -54,16 +54,14 @@
 .row__previews:hover .row__arrowLeft {
   opacity: 1;
   visibility: visible;
-  transform: translateX(0%);
 }
 .row__button {
   position: absolute;
-
-  width: 40px;
+  width: 3vw;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   cursor: pointer;
 }
 
@@ -71,14 +69,12 @@
   right: 60px;
   opacity: 0;
   visibility: hidden;
-  transform: translateX(0%);
   transition: all 500ms;
 }
 
 .row__previews:hover .row__arrowRight {
   opacity: 1;
   visibility: visible;
-  transform: translateX(0%);
 }
 
 .empty {

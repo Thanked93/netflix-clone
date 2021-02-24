@@ -3,14 +3,13 @@
   display: flex;
   height: auto;
   width: 100%;
-
   flex-wrap: wrap;
 }
 
 .movieList__item {
   display: flex;
-  height: 300px;
-  width: 240px;
+  max-height: 340px;
+  max-width: 240px;
   align-items: center;
   width: fit-content;
   margin: 2px;

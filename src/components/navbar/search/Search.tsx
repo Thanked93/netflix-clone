@@ -22,30 +22,30 @@ const Search: React.FC<SearchProps> = () => {
   }, [pushBrowse, setPushBrowse, accountState.searchQuery, location, router]);
 
   return (
-    <div className="search" tabIndex={1}>
+    <div className="search">
       <div className="search__container">
         <BiSearchAlt2
           color="white"
           size="30px"
-          tabIndex={1}
+          className="search__icon"
           onClick={() => setShowInput(!showInput)}
         />
-        {showInput && (
-          <input
-            onChange={(e) => {
-              setPushBrowse(true);
-              accountDispatch({
-                type: CHANGE_QUERY,
-                payload: { searchQuery: e.target.value },
-              });
-            }}
-            className="search__input"
-            type="text"
-            maxLength={20}
-            value={accountState.searchQuery}
-            placeholder="Movie"
-          />
-        )}
+
+        <input
+          disabled={!showInput}
+          onChange={(e) => {
+            setPushBrowse(true);
+            accountDispatch({
+              type: CHANGE_QUERY,
+              payload: { searchQuery: e.target.value },
+            });
+          }}
+          className="search__input"
+          type="text"
+          maxLength={20}
+          value={accountState.searchQuery}
+          placeholder="Movie"
+        />
       </div>
     </div>
   );

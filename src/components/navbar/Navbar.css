@@ -32,7 +32,3 @@
   height: 30px;
   cursor: pointer;
 }
-.navbar__avatar:hover {
-  transform: scale(1.2);
-  opacity: 1;
-}
